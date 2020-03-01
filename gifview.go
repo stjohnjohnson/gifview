@@ -28,7 +28,7 @@ type GifView struct {
 	totalDuration time.Duration
 }
 
-// NewGifView returns a new gif view.
+// NewGifView returns a new GifView.
 func NewGifView() *GifView {
 	return &GifView{
 		Box:       tview.NewBox(),
@@ -64,7 +64,7 @@ func (g *GifView) SetImagePath(imagePath string) (*GifView, error) {
 	return g.SetImage(image)
 }
 
-// SetImage sets the content to a given GIF
+// SetImage sets the content to a given gif.GIF
 func (g *GifView) SetImage(image *gif.GIF) (*GifView, error) {
 	g.Lock()
 	defer g.Unlock()
@@ -96,6 +96,7 @@ func (g *GifView) SetImage(image *gif.GIF) (*GifView, error) {
 	return g, nil
 }
 
+// GetCurrentFrame returns the current frame the GIF is on
 func (g *GifView) GetCurrentFrame() int {
 	dur := time.Since(g.startTime) % g.totalDuration
 	for i, d := range g.delay {
@@ -107,6 +108,7 @@ func (g *GifView) GetCurrentFrame() int {
 	return 0
 }
 
+// Draw renders the current frame of the GIF
 func (g *GifView) Draw(screen tcell.Screen) {
 	g.Lock()
 	defer g.Unlock()
@@ -123,6 +125,7 @@ func (g *GifView) Draw(screen tcell.Screen) {
 
 var globalAnimationMutex = &sync.Mutex{}
 
+// Animate triggers the application to redraw every 50ms
 func Animate(app *tview.Application) {
 	globalAnimationMutex.Lock()
 	defer globalAnimationMutex.Unlock()
