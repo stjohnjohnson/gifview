@@ -21,7 +21,7 @@ type GifView struct {
 	sync.Mutex
 	*tview.Box
 
-	// Timing for the exection of frames
+	// Timing for the frames
 	delay         []time.Duration
 	frames        []string
 	startTime     time.Time
@@ -98,6 +98,11 @@ func (g *GifView) SetImage(image *gif.GIF) (*GifView, error) {
 
 // GetCurrentFrame returns the current frame the GIF is on
 func (g *GifView) GetCurrentFrame() int {
+	// Always at frame 0
+	if g.totalDuration == 0 {
+		return 0
+	}
+
 	dur := time.Since(g.startTime) % g.totalDuration
 	for i, d := range g.delay {
 		dur -= d

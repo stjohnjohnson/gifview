@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestFromImagePath(t *testing.T) {
+func TestImageLoad(t *testing.T) {
 	// Exercise failure paths
 	errorTests := []struct {
 		path string
@@ -29,6 +29,28 @@ func TestFromImagePath(t *testing.T) {
 		_, err := FromImagePath(filepath.Join("testdata", "good.gif"))
 		if err != nil {
 			t.Errorf("Expected: nil, Got: %v", err)
+		}
+	})
+}
+
+func TestCurrentFrame(t *testing.T) {
+	t.Run("good.gif", func(t *testing.T) {
+		g, err := FromImagePath(filepath.Join("testdata", "good.gif"))
+		if err != nil {
+			t.Errorf("Expected: nil, Got: %v", err)
+		}
+
+		f := g.GetCurrentFrame()
+		if f < 0 || f > 2 {
+			t.Errorf("Expected less than 2, Got: %v", f)
+		}
+	})
+
+	t.Run("empty.gif", func(t *testing.T) {
+		g := NewGifView()
+		f := g.GetCurrentFrame()
+		if f != 0 {
+			t.Errorf("Expected 0, Got: %v", f)
 		}
 	})
 }

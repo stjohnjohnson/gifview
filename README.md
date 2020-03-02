@@ -1,5 +1,8 @@
 # gifview
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/stjohnjohnson/gifview)](https://goreportcard.com/report/github.com/stjohnjohnson/gifview)
+[![Go Docs](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/stjohnjohnson/gifview?tab=doc)
+
 Animated GIFs for TView-based TUIs (powered by pixelview)
 
 ![demo](https://user-images.githubusercontent.com/622065/75621100-3d726680-5b45-11ea-9fa0-8a3153461789.gif)
